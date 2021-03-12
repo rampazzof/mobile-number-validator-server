@@ -1,0 +1,8 @@
+/Users/federico/project-extra/mobile-number-validator/src/main/java/com/rampazzof/validator/mobile/number/validator/service/ValidatorService.java
+/Users/federico/project-extra/mobile-number-validator/src/main/java/com/rampazzof/validator/mobile/number/validator/utils/Utils.java
+/Users/federico/project-extra/mobile-number-validator/src/main/java/com/rampazzof/validator/mobile/number/validator/MobileNumberValidatorApplication.java
+/Users/federico/project-extra/mobile-number-validator/src/main/java/com/rampazzof/validator/mobile/number/validator/controller/MobileNumberController.java
+/Users/federico/project-extra/mobile-number-validator/src/main/java/com/rampazzof/validator/mobile/number/validator/repository/MobileNumberRepository.java
+/Users/federico/project-extra/mobile-number-validator/src/main/java/com/rampazzof/validator/mobile/number/validator/dto/MobileNumber.java
+/Users/federico/project-extra/mobile-number-validator/src/main/java/com/rampazzof/validator/mobile/number/validator/model/ValidationResponse.java
+/Users/federico/project-extra/mobile-number-validator/src/main/java/com/rampazzof/validator/mobile/number/validator/model/ValidationRequest.java

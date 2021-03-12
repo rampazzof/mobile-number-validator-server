@@ -1,0 +1,8 @@
+com/rampazzof/validator/mobile/number/validator/repository/MobileNumberRepository.class
+com/rampazzof/validator/mobile/number/validator/service/ValidatorService.class
+com/rampazzof/validator/mobile/number/validator/model/ValidationResponse.class
+com/rampazzof/validator/mobile/number/validator/dto/MobileNumber.class
+com/rampazzof/validator/mobile/number/validator/controller/MobileNumberController.class
+com/rampazzof/validator/mobile/number/validator/model/ValidationRequest.class
+com/rampazzof/validator/mobile/number/validator/utils/Utils.class
+com/rampazzof/validator/mobile/number/validator/MobileNumberValidatorApplication.class
