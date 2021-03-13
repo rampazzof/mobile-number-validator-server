@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface MobileNumberRepository extends JpaRepository<MobileNumber, Long> {
-    Optional<MobileNumber> findOneByRawMobileNumber(String mobileNumber);
+    Optional<MobileNumber> findByRawMobileNumber(String mobileNumber);
 }

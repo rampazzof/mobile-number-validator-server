@@ -12,8 +12,8 @@ public class ValidatorService {
 
     private final MobileNumberRepository mobileNumberRepository;
 
-    public MobileNumber validate(String rawMobileNumber) {
-        var optionalMobileNumber = mobileNumberRepository.findOneByRawMobileNumber(rawMobileNumber);
+    public MobileNumber lightValidation(String rawMobileNumber) {
+        var optionalMobileNumber = mobileNumberRepository.findByRawMobileNumber(rawMobileNumber);
         if (optionalMobileNumber.isPresent()) {
             return optionalMobileNumber.get();
         }
@@ -49,5 +49,27 @@ public class ValidatorService {
         } catch (IndexOutOfBoundsException e) {
             return mobileNumberFiltered;
         }
+    }
+
+    public MobileNumber strongValidation(String rawMobileNumber) {
+        var optionalMobileNumber = mobileNumberRepository.findByRawMobileNumber(rawMobileNumber);
+        if (optionalMobileNumber.isPresent()) {
+            return optionalMobileNumber.get();
+        }
+        var mobileNumber = new MobileNumber();
+        mobileNumber.setRawMobileNumber(rawMobileNumber);
+        if (isValid(rawMobileNumber)) {
+            mobileNumber.setMobileNumber(rawMobileNumber);
+            mobileNumber.setStatus(MobileNumber.Status.VALID);
+            return mobileNumberRepository.save(mobileNumber);
+        }
+        var mobileNumberCleaned = Utils.filterNumbers(rawMobileNumber);
+        if (isValid(mobileNumberCleaned)) {
+            mobileNumber.setMobileNumber(mobileNumberCleaned);
+            mobileNumber.setStatus(MobileNumber.Status.CORRECTED);
+            return mobileNumberRepository.save(mobileNumber);
+        }
+        mobileNumber.setStatus(MobileNumber.Status.NOT_VALID);
+        return mobileNumber;
     }
 }

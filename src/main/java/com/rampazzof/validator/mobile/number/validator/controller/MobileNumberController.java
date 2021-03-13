@@ -1,6 +1,5 @@
 package com.rampazzof.validator.mobile.number.validator.controller;
 
-import com.rampazzof.validator.mobile.number.validator.dto.MobileNumber;
 import com.rampazzof.validator.mobile.number.validator.model.DocumentValidationResponse;
 import com.rampazzof.validator.mobile.number.validator.model.ValidationRequest;
 import com.rampazzof.validator.mobile.number.validator.model.ValidationResponse;
@@ -43,7 +42,10 @@ public class MobileNumberController {
             var validationResponseList = csvParser
                     .getRecords()
                     .parallelStream()
-                    .map(row -> mapValidationResponse(validatorService.validate(row.get("mobile_number"))))
+                    .map(row -> {
+                        var validationResponse = new ValidationResponse();
+                        return validationResponse.mapValidationResponse(validatorService.lightValidation(row.get("mobile_number")));
+                    })
                     .collect(Collectors.toList());
             var documentValidationResponse = new DocumentValidationResponse();
             documentValidationResponse.setValidationResponseList(validationResponseList);
@@ -63,17 +65,10 @@ public class MobileNumberController {
             MDC.clear();
             MDC.put("action", "validateSingleMobileNumber");
             log.info("validate mobile number {}", validationRequest.getMobileNumber());
-            return mapValidationResponse(validatorService.validate(validationRequest.getMobileNumber()));
+            var validationResponse = new ValidationResponse();
+            return validationResponse.mapValidationResponse(validatorService.lightValidation(validationRequest.getMobileNumber()));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
-    }
-
-    private ValidationResponse mapValidationResponse(MobileNumber mobileNumber) {
-        var validationResponse = new ValidationResponse();
-        validationResponse.setRawMobileNumber(mobileNumber.getRawMobileNumber());
-        validationResponse.setMobileNumber(mobileNumber.getMobileNumber());
-        validationResponse.setStatus(mobileNumber.getStatus().name());
-        return validationResponse;
     }
 }
