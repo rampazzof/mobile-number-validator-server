@@ -44,7 +44,7 @@ public class MobileNumberController {
                     .parallelStream()
                     .map(row -> {
                         var validationResponse = new ValidationResponse();
-                        return validationResponse.mapValidationResponse(validatorService.lightValidation(row.get("mobile_number")));
+                        return validationResponse.mapValidationResponse(validatorService.validate(row.get("mobile_number"), false));
                     })
                     .collect(Collectors.toList());
             var documentValidationResponse = new DocumentValidationResponse();
@@ -66,7 +66,7 @@ public class MobileNumberController {
             MDC.put("action", "validateSingleMobileNumber");
             log.info("validate mobile number {}", validationRequest.getMobileNumber());
             var validationResponse = new ValidationResponse();
-            return validationResponse.mapValidationResponse(validatorService.lightValidation(validationRequest.getMobileNumber()));
+            return validationResponse.mapValidationResponse(validatorService.validate(validationRequest.getMobileNumber(), false));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
