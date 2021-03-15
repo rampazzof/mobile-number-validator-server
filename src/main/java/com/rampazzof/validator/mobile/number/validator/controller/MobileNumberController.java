@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
 public class MobileNumberController {
