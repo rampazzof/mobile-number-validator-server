@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1")
 public class MobileNumberController {
 
+    @Value("${strong-validation}")
+    private boolean strongValidation;
+
     private final ValidatorService validatorService;
 
     @PostMapping(value = "/upload/csv", consumes = {"multipart/form-data"})
@@ -45,7 +49,7 @@ public class MobileNumberController {
                     .parallelStream()
                     .map(row -> {
                         var validationResponse = new ValidationResponse();
-                        return validationResponse.mapValidationResponse(validatorService.validate(row.get("mobile_number"), false));
+                        return validationResponse.mapValidationResponse(validatorService.validate(row.get("mobile_number"), strongValidation));
                     })
                     .collect(Collectors.toList());
             var documentValidationResponse = new DocumentValidationResponse();
@@ -67,7 +71,7 @@ public class MobileNumberController {
             MDC.put("action", "validateSingleMobileNumber");
             log.info("validate mobile number {}", validationRequest.getMobileNumber());
             var validationResponse = new ValidationResponse();
-            return validationResponse.mapValidationResponse(validatorService.validate(validationRequest.getMobileNumber(), false));
+            return validationResponse.mapValidationResponse(validatorService.validate(validationRequest.getMobileNumber(), strongValidation));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }

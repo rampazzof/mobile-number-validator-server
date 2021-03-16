@@ -35,7 +35,7 @@ public class ValidatorServiceTest {
         assertEquals("27010203045", validatorService.cleanNumber("27010203045"));
         assertEquals("27010203045", validatorService.cleanNumber("270102030450"));
         assertEquals("27010203045", validatorService.cleanNumber("027010203045"));
-        assertEquals("270102", validatorService.cleanNumber("270102"));
-        assertEquals("0102132", validatorService.cleanNumber("0102132"));
+        assertEquals("", validatorService.cleanNumber("270102"));
+        assertEquals("", validatorService.cleanNumber("0102132"));
     }
 }
