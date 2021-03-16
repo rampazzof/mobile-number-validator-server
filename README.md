@@ -12,6 +12,6 @@ N.B. Csv file header must be `"id", "mobile_number"`
 2. Run `mvn clean package`
 3. Run `java -jar ./target/mobile-number-validator-0.0.1-SNAPSHOT.jar`
 
-If you want perform strong validation* set ENV `STRONG_VALIDATION` to `true`
+If you want perform strong validation* set ENV `STRONG_VALIDATION` to `true` (default `false`)
 
 *the difference between strong and light validation is that strong validation only cleans up the string by removing chars (letter, symbol) while light validation also looks for the substring starting with 27 and length 11.
